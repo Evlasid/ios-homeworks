@@ -28,6 +28,15 @@ class ProfileHeaderView: UIView {
         return label
     }()
     
+//    private let pushButton: UIButton = {
+//        let button = UIButton(type: .system)
+//        button.setTitle("Жми!!!", for: .normal)
+//        button.setTitleColor(.white, for: .normal)
+//        button.backgroundColor = .blue
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        return button
+//    }()
+    
     private lazy var button: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Статус", for: .normal)
@@ -81,6 +90,7 @@ class ProfileHeaderView: UIView {
         addSubview(titleStatus)
         addSubview(button)
         addSubview(textField)
+//        addSubview(pushButton)
         
         NSLayoutConstraint.activate([
             button.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 15),
@@ -103,6 +113,10 @@ class ProfileHeaderView: UIView {
             textField.widthAnchor.constraint(equalToConstant: 210),
             textField.leadingAnchor.constraint(equalTo: titleName.leadingAnchor),
             textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+//            pushButton.heightAnchor.constraint(equalToConstant: 50),pushButton.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 0),
+//            pushButton.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: 0),
+//            pushButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,constant: 0),
+        
         ])
     }
     
