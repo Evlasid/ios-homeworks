@@ -13,3 +13,9 @@ extension LogInViewController: UITextFieldDelegate {
         return true
     }
 }
+
+extension UIView {
+    static var identifier: String {
+        String(describing: self)
+    }
+}
