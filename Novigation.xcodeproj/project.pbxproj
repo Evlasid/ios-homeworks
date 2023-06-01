@@ -11,6 +11,7 @@
 		BC0135FC2A16101300FED38D /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0135FB2A16101300FED38D /* FeedViewController.swift */; };
 		BC1F57722A22252E00037BFF /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F57712A22252E00037BFF /* LogInViewController.swift */; };
 		BC1F57742A22255800037BFF /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1F57732A22255800037BFF /* extension.swift */; };
+		BC32AFCA2A281133000EF818 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32AFC92A281133000EF818 /* PostTableViewCell.swift */; };
 		BC339E8B2A16BAF60097B7AE /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC339E8A2A16BAF60097B7AE /* ProfileHeaderView.swift */; };
 		BCA912992A1611DA002D4A41 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA912982A1611DA002D4A41 /* InfoViewController.swift */; };
 		BCA9129B2A1611E7002D4A41 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA9129A2A1611E7002D4A41 /* Post.swift */; };
@@ -27,6 +28,7 @@
 		BC0135FB2A16101300FED38D /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		BC1F57712A22252E00037BFF /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		BC1F57732A22255800037BFF /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
+		BC32AFC92A281133000EF818 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		BC339E8A2A16BAF60097B7AE /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		BCA912982A1611DA002D4A41 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		BCA9129A2A1611E7002D4A41 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				BC0135F92A16100500FED38D /* ProfileViewController.swift */,
+				BC32AFC92A281133000EF818 /* PostTableViewCell.swift */,
 				BC1F57712A22252E00037BFF /* LogInViewController.swift */,
 				BC339E8A2A16BAF60097B7AE /* ProfileHeaderView.swift */,
 			);
@@ -177,6 +180,7 @@
 				BCA9129B2A1611E7002D4A41 /* Post.swift in Sources */,
 				BC1F57722A22252E00037BFF /* LogInViewController.swift in Sources */,
 				BCC717E22A1582EE008F2423 /* SceneDelegate.swift in Sources */,
+				BC32AFCA2A281133000EF818 /* PostTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

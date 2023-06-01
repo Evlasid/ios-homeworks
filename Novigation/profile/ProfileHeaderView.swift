@@ -5,10 +5,13 @@
 //  Created by Евгений Сидоров on 22.05.2023.
 //
 
+
 import UIKit
 class ProfileHeaderView: UIView {
     
-    
+
+    private var statusText: String = ""
+
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.borderColor = UIColor.white.cgColor
@@ -17,29 +20,21 @@ class ProfileHeaderView: UIView {
         imageView.image = UIImage(named: "max")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    
-    private let titleName: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.text = "Max Payne"
+        label.text = "Hipster Cat"
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-//    private let pushButton: UIButton = {
-//        let button = UIButton(type: .system)
-//        button.setTitle("Жми!!!", for: .normal)
-//        button.setTitleColor(.white, for: .normal)
-//        button.backgroundColor = .blue
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        return button
-//    }()
-    
-    private lazy var button: UIButton = {
+    private lazy var  button: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Статус", for: .normal)
+        button.setTitle("Show status", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .blue
         button.layer.cornerRadius = 4
@@ -47,84 +42,90 @@ class ProfileHeaderView: UIView {
         button.layer.shadowOpacity = 0.7
         button.layer.shadowRadius = 4
         button.layer.shadowColor = UIColor.black.cgColor
-        button.addTarget(self, action: #selector(btnPressed), for: .touchUpInside)
-        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         return button
     }()
     
-    var titleStatus: UILabel = {
+    var subtitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .gray
-        label.text = "Скажите что-нибудь..."
+        label.text = "Waiting for something..."
         label.isUserInteractionEnabled = true
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let textField: UITextField = {
-        let textField = UITextField()
+    let statusTextFeld: UITextField = {
+       let textField = UITextField()
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 12
         textField.minimumFontSize = 15
         textField.layer.cornerRadius = 12
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 1.0
-        textField.placeholder = ""
+        textField.placeholder = "status..."
+        textField.textAlignment = .center
+        textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
-    private var statusText: String = ""
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+        setupLayoutConstraint()
+    }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        titleName.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        titleStatus.translatesAutoresizingMaskIntoConstraints = false
-        button.translatesAutoresizingMaskIntoConstraints = false
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    func setupViews(){
         addSubview(imageView)
-        addSubview(titleName)
-        addSubview(titleStatus)
+        addSubview(titleLabel)
+        addSubview(subtitleLabel)
         addSubview(button)
-        addSubview(textField)
-//        addSubview(pushButton)
-        
-        NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 15),
-            button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            button.heightAnchor.constraint(equalToConstant: 50),
-            button.bottomAnchor.constraint(equalTo: bottomAnchor),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            imageView.widthAnchor.constraint(equalToConstant: 120),
-            imageView.heightAnchor.constraint(equalToConstant: 120),
-            titleStatus.leadingAnchor.constraint(equalTo: titleName.leadingAnchor),
-            titleStatus.topAnchor.constraint(equalTo: titleName.bottomAnchor, constant: 15),
-            titleStatus.widthAnchor.constraint(equalToConstant: 170),
-            titleName.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 10),
-            titleName.topAnchor.constraint(equalTo: topAnchor, constant: 30),
-            titleName.widthAnchor.constraint(equalToConstant: 190),
-            textField.topAnchor.constraint(equalTo: titleStatus.bottomAnchor, constant: 12),
-            textField.heightAnchor.constraint(equalToConstant: 50),
-            textField.widthAnchor.constraint(equalToConstant: 210),
-            textField.leadingAnchor.constraint(equalTo: titleName.leadingAnchor),
-            textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-//            pushButton.heightAnchor.constraint(equalToConstant: 50),pushButton.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 0),
-//            pushButton.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: 0),
-//            pushButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,constant: 0),
-        
-        ])
+        addSubview(statusTextFeld)
     }
-    
-    @objc func btnPressed() {
         
-        print( textField.text ?? "")
-        
+            private  func setupLayoutConstraint() {
+            
+            NSLayoutConstraint.activate([
+                imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+                imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+                imageView.widthAnchor.constraint(equalToConstant: 120),
+                imageView.heightAnchor.constraint(equalToConstant: 120),
+                
+                titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 10),
+                titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 27),
+                titleLabel.widthAnchor.constraint(equalToConstant: 100),
+                
+                subtitleLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+                subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
+                subtitleLabel.widthAnchor.constraint(equalToConstant: 150),
+                
+                button.topAnchor.constraint(equalTo: statusTextFeld.bottomAnchor, constant: 15),
+                button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+                button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+                button.heightAnchor.constraint(equalToConstant: 50),
+                button.bottomAnchor.constraint(equalTo: bottomAnchor),
+                
+                statusTextFeld.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 10),
+                statusTextFeld.heightAnchor.constraint(equalToConstant: 40),
+                statusTextFeld.widthAnchor.constraint(equalToConstant: 200),
+                statusTextFeld.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+                statusTextFeld.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            ])
+        }
+
+    @objc func buttonPressed() {
+       
+        if let text =  statusTextFeld.text {
+            subtitleLabel.text = text
+            if subtitleLabel.text == "" {
+                subtitleLabel.text = " "
+            }
+            print(text)}
     }
-
-
 }

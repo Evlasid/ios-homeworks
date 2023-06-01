@@ -64,6 +64,7 @@ class LogInViewController: UIViewController {
         stackView.clipsToBounds = true
         return stackView
     }()
+    
     private lazy var passwordTextField: UITextField = {
         let textField = UITextField()    //
         textField.textColor = .black
