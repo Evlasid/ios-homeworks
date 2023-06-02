@@ -7,7 +7,7 @@
  
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UITableViewDelegate {
     
     private let post = Post.createPost()
 
@@ -27,13 +27,9 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = .white
         addSubviews()
         setContraints()
+        navigationController?.navigationBar.isHidden = true
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
-    }
-        
     private func addSubviews(){
         view.addSubview(tableView)
     }
@@ -68,6 +64,4 @@ extension ProfileViewController: UITableViewDataSource {
             return nil
         }
     }
-}
-extension ProfileViewController: UITableViewDelegate {
 }

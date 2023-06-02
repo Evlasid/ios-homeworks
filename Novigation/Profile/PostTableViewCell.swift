@@ -103,7 +103,7 @@ class PostTableViewCell: UITableViewCell {
                 postImg.topAnchor.constraint(equalTo: author.bottomAnchor, constant: 25),
                 postImg.leadingAnchor.constraint(equalTo: contentLayer.leadingAnchor),
                 postImg.trailingAnchor.constraint(equalTo: contentLayer.trailingAnchor),
-                postImg.heightAnchor.constraint(equalToConstant: 200),
+                postImg.heightAnchor.constraint(equalTo: postImg.widthAnchor),
                 
                 descriptionLabel.topAnchor.constraint(equalTo: postImg.bottomAnchor),
                 descriptionLabel.leadingAnchor.constraint(equalTo: contentLayer.leadingAnchor, constant: 20),

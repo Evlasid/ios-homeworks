@@ -18,8 +18,7 @@ class FeedViewController: UIViewController {
         
         return button
     }()
-    
-    
+        
     func setConstraints() {
         NSLayoutConstraint.activate([
             postButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -43,7 +42,4 @@ class FeedViewController: UIViewController {
         setConstraints()
         
     }
-    
-
-
 }

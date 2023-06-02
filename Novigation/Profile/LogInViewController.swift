@@ -30,7 +30,6 @@ class LogInViewController: UIViewController {
         return view
     }()
     
-    
     private lazy var loginTF: UITextField = {
         let textField = UITextField()    //
         textField.textColor = .black
@@ -46,6 +45,7 @@ class LogInViewController: UIViewController {
         textField.delegate = self
         return textField
     }()
+    
     private let  razdelitel: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -82,9 +82,6 @@ class LogInViewController: UIViewController {
         return textField
     }()
     
-
-    
-    
     private lazy var  loginButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Войти", for: .normal)
@@ -92,7 +89,6 @@ class LogInViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
         button.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
-//        button.tintColor = .blue
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(tapLogin), for: .touchUpInside)
         switch button.state {
@@ -103,8 +99,6 @@ class LogInViewController: UIViewController {
         return button
     }()
     
-
-        
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -116,8 +110,6 @@ class LogInViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
-    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
