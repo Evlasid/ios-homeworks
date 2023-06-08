@@ -9,9 +9,9 @@
 import UIKit
 class ProfileHeaderView: UIView {
     
-
+    
     private var statusText: String = ""
-
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.borderColor = UIColor.white.cgColor
@@ -58,7 +58,7 @@ class ProfileHeaderView: UIView {
     }()
     
     let statusTextFeld: UITextField = {
-       let textField = UITextField()
+        let textField = UITextField()
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 12
         textField.minimumFontSize = 15
@@ -88,39 +88,39 @@ class ProfileHeaderView: UIView {
         addSubview(button)
         addSubview(statusTextFeld)
     }
+    
+    private  func setupLayoutConstraint() {
         
-            private  func setupLayoutConstraint() {
+        NSLayoutConstraint.activate([
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            imageView.widthAnchor.constraint(equalToConstant: 120),
+            imageView.heightAnchor.constraint(equalToConstant: 120),
             
-            NSLayoutConstraint.activate([
-                imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-                imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-                imageView.widthAnchor.constraint(equalToConstant: 120),
-                imageView.heightAnchor.constraint(equalToConstant: 120),
-                
-                titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 10),
-                titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 27),
-                titleLabel.widthAnchor.constraint(equalToConstant: 100),
-                
-                subtitleLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-                subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
-                subtitleLabel.widthAnchor.constraint(equalToConstant: 150),
-                
-                button.topAnchor.constraint(equalTo: statusTextFeld.bottomAnchor, constant: 15),
-                button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-                button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-                button.heightAnchor.constraint(equalToConstant: 50),
-                button.bottomAnchor.constraint(equalTo: bottomAnchor),
-                
-                statusTextFeld.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 10),
-                statusTextFeld.heightAnchor.constraint(equalToConstant: 40),
-                statusTextFeld.widthAnchor.constraint(equalToConstant: 200),
-                statusTextFeld.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-                statusTextFeld.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            ])
-        }
-
+            titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 10),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 27),
+            titleLabel.widthAnchor.constraint(equalToConstant: 100),
+            
+            subtitleLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
+            subtitleLabel.widthAnchor.constraint(equalToConstant: 150),
+            
+            button.topAnchor.constraint(equalTo: statusTextFeld.bottomAnchor, constant: 15),
+            button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            button.heightAnchor.constraint(equalToConstant: 50),
+            button.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            statusTextFeld.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 10),
+            statusTextFeld.heightAnchor.constraint(equalToConstant: 40),
+            statusTextFeld.widthAnchor.constraint(equalToConstant: 200),
+            statusTextFeld.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            statusTextFeld.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+        ])
+    }
+    
     @objc func buttonPressed() {
-       
+        
         if let text =  statusTextFeld.text {
             subtitleLabel.text = text
             if subtitleLabel.text == "" {

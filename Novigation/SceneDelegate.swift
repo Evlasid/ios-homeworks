@@ -28,8 +28,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         loginNovigationViewController.tabBarItem.image = UIImage(systemName: "person.crop.circle.fill")
 
        
-        
-        
         let feedViewController = FeedViewController()
         let feedNovigationViewController = UINavigationController(rootViewController: feedViewController)
         feedNovigationViewController.tabBarItem.title = "Новости"
