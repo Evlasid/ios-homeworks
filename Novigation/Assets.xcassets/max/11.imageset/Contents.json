@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "max_payne_2_the_fall_of_max_payne_screenshot_31d7680c.jpeg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
