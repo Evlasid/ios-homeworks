@@ -107,6 +107,10 @@ class ProfileHeaderView: UIView {
     private var widthImageView = NSLayoutConstraint()
     private var heightImageView = NSLayoutConstraint()
     private var heightWrapView = NSLayoutConstraint()
+    private var bottomAnchorView = NSLayoutConstraint()
+
+
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -135,6 +139,9 @@ class ProfileHeaderView: UIView {
         topImageView = imageView.topAnchor.constraint(equalTo: topAnchor,constant: 16)
         widthImageView = imageView.widthAnchor.constraint(equalToConstant: 95)
         heightImageView = imageView.heightAnchor.constraint(equalToConstant: 95)
+        bottomAnchorView = imageView.bottomAnchor.constraint(equalTo: topAnchor,constant: 16)
+
+        
         NSLayoutConstraint.activate([leadingImageView, topImageView, widthImageView, heightImageView])
         
         heightWrapView = layerView.heightAnchor.constraint(equalToConstant: 0)
@@ -191,37 +198,37 @@ class ProfileHeaderView: UIView {
             print(text)}
     }
     @objc private func tapOpen() {
-        UIView.animateKeyframes(withDuration: 0.5, delay: 0) {
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.6) {
-                self.widthImageView.constant = UIScreen.main.bounds.width - 60
-                self.leadingImageView.constant = 30
-                self.trailingImageView.constant = 30
-                self.topImageView.constant = 30
-                self.heightImageView.constant = UIScreen.main.bounds.height - 220
-                self.heightWrapView.constant =  UIScreen.main.bounds.height
+            
+            let widthScreen = UIScreen.main.bounds.width
+            let heightScreen = UIScreen.main.bounds.width * 2
+            
+            UIView.animate(withDuration: 0.2, animations: {
+                self.imageView.transform = CGAffineTransform(scaleX: 4, y: 4)
+                self.layerView.frame = .init(origin: CGPoint(x: 0, y: 0), size: CGSize(width: widthScreen, height: heightScreen))
+                self.imageView.center = self.layerView.center
                 self.imageView.layer.cornerRadius = 0
                 self.layerView.isHidden = false
-                self.closeBtn.layer.opacity = 1
-                self.layerView.layer.opacity = 0.3
+                  self.layerView.layer.opacity = 0.3
+            }) { _ in
+                
+                UIView.animate(withDuration: 0.3) {
+                    self.closeBtn.alpha = 1
+                }
             }
-        }
     }
     
     @objc private func tapClose() {
-        UIView.animateKeyframes(withDuration: 0.5, delay: 0) {
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.5) {
-                self.closeBtn.layer.opacity = 0
-                self.layerView.layer.opacity = 0
-                self.layerView.isHidden = false
-                self.layerView.isHidden = true
+
+        UIView.animate(withDuration: 0.3, animations: {
+            self.closeBtn.alpha = 0
+
+        }) { _ in
+            UIView.animate(withDuration: 0.2, animations: {
+                  self.layerView.layer.opacity = 0.0
+                self.imageView.frame = .init(origin: CGPoint(x: 16, y: 16), size: CGSize(width: 100, height: 100))
+                self.imageView.transform = .identity
                 self.imageView.layer.cornerRadius = 50
-                self.widthImageView.constant = 95
-                self.leadingImageView.constant = 16
-                self.trailingImageView.constant = 30
-                self.topImageView.constant = 16
-                self.heightImageView.constant = 95
-                self.heightWrapView.constant =  UIScreen.main.bounds.height
-            }
+            })
         }
     }
 }
