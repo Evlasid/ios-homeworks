@@ -8,7 +8,7 @@
 import UIKit
 
 class PhotosTableViewCell: UITableViewCell {
-    
+
     private let header: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 26, weight: .bold)
@@ -130,5 +130,9 @@ class PhotosTableViewCell: UITableViewCell {
             //            wraplayer.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
         ])
     }
+    
+
+    
+
 }
 

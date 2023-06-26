@@ -9,7 +9,7 @@ import UIKit
 
 class ProfileViewController: UIViewController, UITableViewDelegate {
     
-    private let post = Post.createPost()
+    private var post = Post.createPost()
 
     
     private lazy var tableView: UITableView = {
@@ -29,6 +29,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate {
         addSubviews()
         setContraints()
         navigationController?.navigationBar.isHidden = true
+        
     }
     
     private func addSubviews(){
@@ -64,8 +65,13 @@ extension ProfileViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.identifier, for: indexPath) as! PhotosTableViewCell
             return cell
         } else  {
+         
             let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
             cell.setupCell(model: post[indexPath.row])
+            cell.delegate = self
+            cell.setIndexPath(indexPath)
+
+
             return cell
         }
     }
@@ -84,10 +90,23 @@ extension ProfileViewController: UITableViewDataSource {
         let photosViewController = PhotosViewController()
         if indexPath.section == 0 {
             navigationController?.pushViewController(photosViewController, animated: true)
+        } else {
+            post[indexPath.row].views += 1
+           
+            let modalVC = ModalViewController()
+            modalVC.setupData(model: post[indexPath.row])
+            tableView.reloadData()
+            present(modalVC, animated: true)
         }
+        
+        tableView.reloadData()
     }
-    
 }
 
-
-
+extension ProfileViewController: IncreaseLikeDelegate {
+    func increaseLikes( indexPath: IndexPath) {
+        self.post[indexPath.row].likes += 1
+        print(self.post[indexPath.row].likes)
+        tableView.reloadData()
+    }
+}

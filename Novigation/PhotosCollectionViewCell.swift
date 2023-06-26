@@ -7,14 +7,24 @@
 
 import UIKit
 
+protocol CustomCellDelegate: AnyObject {
+    func tapImageInCell(_ image: UIImage?, frameImage: CGRect, indexPath: IndexPath)
+}
+
 final class PhotosCollectionViewCell: UICollectionViewCell {
     
-    private let imageView: UIImageView = {
+    weak var delegate: CustomCellDelegate?
+    private var indexPathCell = IndexPath()
+    
+     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapAction)))
+
         return imageView
     }()
     
@@ -27,6 +37,10 @@ final class PhotosCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setIndexPath(_ indexPath: IndexPath) {
+        indexPathCell = indexPath
     }
     
     private func setupCell() {
@@ -47,5 +61,9 @@ final class PhotosCollectionViewCell: UICollectionViewCell {
             imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
+    }
+    
+    @objc private func tapAction() {
+        delegate?.tapImageInCell(imageView.image, frameImage: imageView.frame, indexPath: indexPathCell)
     }
 }

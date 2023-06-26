@@ -9,8 +9,17 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
+    private lazy var errorMassage: UILabel = {
+        let label = UILabel()
+        label.textColor = .systemGray3
+        label.numberOfLines = 0
+        label.font = UIFont.italicSystemFont(ofSize: label.font.pointSize)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private let colorSet = UIColor(red: 0x48 / 255.0, green: 0x85 / 255.0, blue: 0xCC / 255.0, alpha: 1.0)
-
+    
     private let ImagelogoView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "logo")
@@ -117,10 +126,51 @@ class LogInViewController: UIViewController {
         notificationCenter.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         notificationCenter.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-        
+    
     @objc private func tapLogin() {
-        navigationController?.pushViewController(ProfileViewController(), animated: true)
+        //        navigationController?.pushViewController(ProfileViewController(), animated: true)
+        
+        guard let loginText  = loginTF.text else {
+            return
+        }
+        guard let passwordText  = passwordTextField.text else {
+            return
+        }
+        
+        var loginAlert = false
+        if loginText == "admin" && passwordText == "adminadmin" {
+            loginAlert = false
+            navigationController?.pushViewController(ProfileViewController(), animated: true)
+        } else {
+            loginAlert = true
+            if loginText.count == 0 {
+                loginTF.backgroundColor = UIColor(red: 240, green: 0, blue: 0, alpha: 0.3)
+                loginTF.shake()
+                loginAlert = false
+
+            }
+            
+            if passwordText.count == 0 {
+                passwordTextField.backgroundColor = UIColor(red: 240, green: 0, blue: 0, alpha: 0.3)
+                passwordTextField.shake()
+                loginAlert = false
+            } else if passwordText.count < 6 {
+                errorMassage.text = "Короткий пароль"
+                loginAlert = false
+            }
+        }
+        
+        if loginAlert {
+            let alert = UIAlertController(title: "Ошибка", message: "Ошибка входа", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "ок", style: .default) {_ in
+            }
+            alert.addAction(okAction)
+            present(alert, animated: true)
+            passwordTextField.text = ""
+        }
     }
+    
+    
     
     @objc private func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize: CGRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
@@ -130,63 +180,63 @@ class LogInViewController: UIViewController {
                                                                     bottom: keyboardSize.height + loginButton.frame.height + 16,
                                                                     right: 0)
         }
-    }
-    
-    @objc private func keyboardWillHide() {
-        scrollView.contentInset.bottom = .zero
-        scrollView.verticalScrollIndicatorInsets = .zero
-    }
-    
-    
-    private func setConstraints() {
+    } 
         
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        contentView.addSubview(ImagelogoView)
-        contentView.addSubview(stackText)
-        stackText.addArrangedSubview(loginTF)
-        stackText.addArrangedSubview(razdelitel)
-        stackText.addArrangedSubview(passwordTextField)
-        contentView.addSubview(loginButton)
-        let safeArea = view.safeAreaLayoutGuide
-        let widthInset = view.frame.width - 32
+        @objc private func keyboardWillHide() {
+            scrollView.contentInset.bottom = .zero
+            scrollView.verticalScrollIndicatorInsets = .zero
+        }
         
         
-        
-        NSLayoutConstraint.activate([
+        private func setConstraints() {
             
-            //            scrollView
-            scrollView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            view.addSubview(scrollView)
+            scrollView.addSubview(contentView)
+            contentView.addSubview(ImagelogoView)
+            contentView.addSubview(stackText)
+            stackText.addArrangedSubview(loginTF)
+            stackText.addArrangedSubview(razdelitel)
+            stackText.addArrangedSubview(passwordTextField)
+            contentView.addSubview(loginButton)
+            let safeArea = view.safeAreaLayoutGuide
+            let widthInset = view.frame.width - 32
+            contentView.addSubview(errorMassage)
             
-            //            contentView
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-                        ImagelogoView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
-            ImagelogoView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            ImagelogoView.heightAnchor.constraint(equalToConstant: 100),
-            ImagelogoView.widthAnchor.constraint(equalToConstant: 100),
-                        loginTF.heightAnchor.constraint(equalToConstant: 50),
-                        passwordTextField.topAnchor.constraint(equalTo: razdelitel.bottomAnchor, constant: 0),
-            passwordTextField.heightAnchor.constraint(equalToConstant: 49),
-                        razdelitel.topAnchor.constraint(equalTo: loginTF.bottomAnchor, constant: 0),
-            razdelitel.heightAnchor.constraint(equalToConstant: 1),
-            razdelitel.widthAnchor.constraint(equalToConstant:  widthInset),
-            stackText.topAnchor.constraint(equalTo: ImagelogoView.bottomAnchor, constant: 120),
-            passwordTextField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            passwordTextField.widthAnchor.constraint(equalToConstant:  widthInset),
-                        loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 16),
-            loginButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            loginButton.heightAnchor.constraint(equalToConstant: 50),
-            loginButton.widthAnchor.constraint(equalToConstant:  widthInset),
-            loginButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-        ])
-    }
+            NSLayoutConstraint.activate([
+                
+                //            scrollView
+                scrollView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+                scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                scrollView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+                scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                
+                //            contentView
+                contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+                contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+                contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+                contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+                contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+                ImagelogoView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
+                ImagelogoView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+                ImagelogoView.heightAnchor.constraint(equalToConstant: 100),
+                ImagelogoView.widthAnchor.constraint(equalToConstant: 100),
+                loginTF.heightAnchor.constraint(equalToConstant: 50),
+                passwordTextField.topAnchor.constraint(equalTo: razdelitel.bottomAnchor, constant: 0),
+                passwordTextField.heightAnchor.constraint(equalToConstant: 49),
+                razdelitel.topAnchor.constraint(equalTo: loginTF.bottomAnchor, constant: 0),
+                razdelitel.heightAnchor.constraint(equalToConstant: 1),
+                razdelitel.widthAnchor.constraint(equalToConstant:  widthInset),
+                stackText.topAnchor.constraint(equalTo: ImagelogoView.bottomAnchor, constant: 120),
+                passwordTextField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+                passwordTextField.widthAnchor.constraint(equalToConstant:  widthInset),
+                loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 16),
+                loginButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+                loginButton.heightAnchor.constraint(equalToConstant: 50),
+                loginButton.widthAnchor.constraint(equalToConstant:  widthInset),
+                loginButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            ])
+        }
         
+        
+    }
 
-}
