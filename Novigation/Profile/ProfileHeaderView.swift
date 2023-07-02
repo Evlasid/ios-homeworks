@@ -189,13 +189,19 @@ class ProfileHeaderView: UIView {
     }
     
     @objc func buttonPressed() {
-        
+        errorMessege()
+        }
+    
+    func errorMessege() {
         if let text =  statusTextFeld.text {
             subtitleLabel.text = text
+            statusTextFeld.backgroundColor = .white
             if subtitleLabel.text == "" {
                 subtitleLabel.text = " "
+                statusTextFeld.backgroundColor = UIColor(red: 240, green: 0, blue: 0, alpha: 0.3)
+                statusTextFeld.shake()
             }
-            print(text)}
+        }
     }
     @objc private func tapOpen() {
             
